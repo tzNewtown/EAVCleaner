@@ -18,6 +18,7 @@ class RemoveUnusedMediaCommand extends AbstractCommand
             ->setName('eav:media:remove-unused')
             ->setDescription('Remove unused product images')
             ->addOption('dry-run')
+            ->addOption('script-run')
             ->addOption(
                 'format',
                 null,
@@ -40,8 +41,9 @@ class RemoveUnusedMediaCommand extends AbstractCommand
         $countFiles = 0;
 
         $isDryRun = $input->getOption('dry-run');
+        $isScript = $input->getOption('script-run');
 
-        if(!$isDryRun) {
+        if(!$isDryRun && !$isScript) {
             $output->writeln('WARNING: this is not a dry run. If you want to do a dry-run, add --dry-run.');
             $question = new ConfirmationQuestion('Are you sure you want to continue? [No] ', false);
 
